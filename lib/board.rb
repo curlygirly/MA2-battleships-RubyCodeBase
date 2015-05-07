@@ -6,12 +6,25 @@ class Board
 
   def initialize
     @grid = Array.new(10) {Array.new(10)}
+
   end
 
-  def place_ship(coordinates)
+  def place_ship(ship_type, coordinates, direction)
     row, col = self.wrapper(coordinates)
-    @grid[row][col] = 'ship'
+    @grid[row][col] = ship
+
+
+
+    if direction == 'horizontal'
+      (row...(row + ship_type.size)).to_a.each do |row_coordinate|
+        row_and_col = (col + row_coordinate.to_s).to_sym
+        grid[row_and_col] = ship
+      #ship_type.size.times do |index|
+        #@grid[[row.replace(index)][col]] ='ship'
+      end
+    end
   end
+
 
   def lookup(coordinates)
     row, col = self.wrapper(coordinates)
@@ -22,7 +35,6 @@ class Board
     alphabet = ('a'..'z').to_a
     row, col = coordinates.split(//,2)
     @array = alphabet.index(row), col.to_i - 1
-    @array
   end
 
   def size
@@ -30,10 +42,3 @@ class Board
   end
 
 end
-
-board = Board.new
-puts board.wrapper('a3').inspect
-puts board.wrapper('d1').inspect
-puts board.lookup('a1').inspect
-board.place_ship('a1')
-puts board.lookup('a1').inspect

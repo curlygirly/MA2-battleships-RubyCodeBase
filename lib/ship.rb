@@ -16,3 +16,6 @@ class Ship
     @type = ship_type
   end
 end
+
+cruiser = Ship.new :cruiser
+
